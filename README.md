@@ -1,6 +1,14 @@
-# Velero(Backup/Restore k8s objects),Minio(HA Object Storage for storing unstructered data like videos,photos,images and etc), Restic(encrypt backup data), Etcd(KV persisent store for k8s)
+# Velero(Backup/Restore k8s objects),Minio(HA Object Storage for storing unstructered data like videos,photos,images and etc), Restic(encrypt backup data), Etcd(kv persisent store for k8s)
 
-Velero (formerly Heptio Ark) gives you tools to back up and restore your Kubernetes cluster resources and persistent volumes. Velero lets you: - Take backups of your cluster and restore in case of loss. - Copy cluster resources to other clusters. - Replicate your production environment for development and testing environments. 
+[Velero](https://github.com/vmware-tanzu/velero) (formerly Heptio Ark) gives you tools to back up and restore your Kubernetes cluster resources and persistent volumes. Velero lets you: - Take backups of your cluster and restore in case of loss. - Copy cluster resources to other clusters. - Replicate your production environment for development and testing environments. 
+
+[MinIO](https://github.com/minio/minio) is High Performance Object Storage released under Apache License v2.0. It is API compatible with Amazon S3 cloud storage service. Using MinIO build high performance infrastructure for machine learning, analytics and application data workloads.
+
+[etcd](https://github.com/etcd-io/etcd/blob/master/README.md) is a distributed reliable key-value store for the most critical data of a distributed system, with a focus on being:
+* *Simple*: well-defined, user-facing API (gRPC)
+* *Secure*: automatic TLS with optional client cert authentication
+* *Fast*: benchmarked 10,000 writes/sec
+* *Reliable*: properly distributed using Raft
 
 ## Install and configure MinIO standalone mode, In prod env you have to setup in distributed mode
 ```
@@ -39,7 +47,7 @@ $ velero install \
    --use-restic
 ```
 
-## Use basic velero commands
+## Basic velero commands
 ```
 $ velero backup-location get
 NAME      PROVIDER   BUCKET/PREFIX
@@ -216,11 +224,23 @@ $ velero backup create wp --include-namespaces default —wait
 wait for backup to complete
 $   velero backup describe firstbackup —details
 ```
+## MinIO Web UI 
+![Screenshot](minioWebUI.png)
 
-## Etcd Restore
+
+## Etcd Backup/Restore
 For backup you can use etcd-kv-backup.sh script. For restore, Let’s say the Kubernetes cluster went completely down and we need to recover the Kubernetes cluster from the etcd snapshot.Normally, start the etcd cluster and do the kubeadm init on the master node with etcd endpoints.Make sure you put the backup certificates into /etc/kubernetes/pki folder before kubeadm init. It will pick up the same certificates.
 
 ## Resources
-Etcd:
-https://medium.com/velotio-perspectives/the-ultimate-guide-to-disaster-recovery-for-your-kubernetes-clusters-94143fcc8c1e
-https://labs.consol.de/kubernetes/2018/05/25/kubeadm-backup.html
+Etcd:<br />
+https://medium.com/velotio-perspectives/the-ultimate-guide-to-disaster-recovery-for-your-kubernetes-clusters-94143fcc8c1e <br />
+https://labs.consol.de/kubernetes/2018/05/25/kubeadm-backup.html<br />
+
+Velero:<br />
+https://velero.io/docs/master/how-velero-works/ <br />
+https://www.objectif-libre.com/en/blog/2020/01/10/kubernetes-backup-stateful-apps/ <br />
+https://blog.kubernauts.io/ <br />backup-and-restore-of-kubernetes-applications-using-heptios-velero-with-restic-and-rook-ceph-as-2e8df15b1487<br />
+
+MinIO: <br />
+https://docs.min.io/docs/distributed-minio-quickstart-guide.html
+

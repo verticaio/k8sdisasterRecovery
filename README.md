@@ -47,7 +47,7 @@ $ velero install \
    --use-restic
 ```
 
-## Basic velero commands
+## Velero Backup
 ```
 $ velero backup-location get
 NAME      PROVIDER   BUCKET/PREFIX

@@ -138,7 +138,7 @@ firstbackup   1m
 ```
 
 
-## Restore process 
+## Velero Restore  
 ```
 Delete testing ns
 $ kubectl delete ns testing
